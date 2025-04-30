@@ -1,11 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
      // Mobile menu functionality
      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+     const closeMenuBtn = document.querySelector('.close-menu-btn');
      const nav = document.querySelector('.nav');
      
      mobileMenuBtn.addEventListener('click', function() {
           this.classList.toggle('active');
           nav.classList.toggle('active');
+          document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+     });
+     
+     closeMenuBtn.addEventListener('click', function() {
+          mobileMenuBtn.classList.remove('active');
+          nav.classList.remove('active');
+          document.body.style.overflow = '';
      });
 
      // Close mobile menu when clicking outside
@@ -13,7 +21,18 @@ document.addEventListener('DOMContentLoaded', function () {
           if (!event.target.closest('.nav') && !event.target.closest('.mobile-menu-btn')) {
                mobileMenuBtn.classList.remove('active');
                nav.classList.remove('active');
+               document.body.style.overflow = '';
           }
+     });
+     
+     // Close mobile menu when clicking on a link
+     const navLinks = document.querySelectorAll('.nav ul li a');
+     navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+               mobileMenuBtn.classList.remove('active');
+               nav.classList.remove('active');
+               document.body.style.overflow = '';
+          });
      });
 
      // Create particles
